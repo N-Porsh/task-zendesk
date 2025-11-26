@@ -16,7 +16,56 @@ A Node.js service that calculates and provides helpdesk ticket scores via gRPC A
 - Node.js 22+
 - npm
 
-### Installation
+### Quick Start (From Scratch)
+
+After cloning the repository, run:
+
+```bash
+npm run fresh
+```
+
+This will:
+1. Install all dependencies (root + client)
+2. Initialize the database
+3. Start the project in development mode
+
+Or use the setup script directly:
+
+```bash
+./setup.sh
+# or
+npm run setup
+```
+
+Then run:
+```bash
+npm run dev
+```
+
+### Kubernetes Deployment
+
+To set up and deploy to Kubernetes in one command:
+
+```bash
+./setup.sh --k8s
+# or
+npm run setup:k8s
+```
+
+This will:
+1. Install all dependencies
+2. Initialize the database
+3. Build the Docker image
+4. Deploy to Kubernetes (PVC, Deployment, Service)
+
+**Prerequisites for Kubernetes deployment:**
+- Docker installed and running
+- kubectl installed and configured
+- Kubernetes cluster accessible
+
+### Manual Installation
+
+If you prefer to set up manually:
 
 ```bash
 npm install

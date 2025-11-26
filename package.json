@@ -12,8 +12,12 @@
     "lint:fix": "eslint src --ext .ts --fix",
     "build": "tsc && cd client && npm run build",
     "init-db": "node dist/database/init-db.js",
+    "init-db:dev": "ts-node src/database/init-db.ts",
+    "setup": "bash setup.sh",
+    "setup:k8s": "bash setup.sh --k8s",
     "start": "npm run init-db && concurrently \"node dist/grpc/server.js\" \"node dist/api/index.js\"",
-    "dev": "concurrently \"ts-node src/grpc/server.ts\" \"ts-node src/api/index.ts\" \"cd client && npm run dev\""
+    "dev": "npm run init-db:dev && concurrently \"ts-node src/grpc/server.ts\" \"ts-node src/api/index.ts\" \"cd client && npm run dev\"",
+    "fresh": "bash setup.sh && npm run dev"
   },
   "keywords": [],
   "author": "",
