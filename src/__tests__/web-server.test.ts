@@ -45,10 +45,10 @@ describe('Web Server', () => {
         server.close(() => {
           resolve();
         });
-      });
+    });
     }
   });
-  
+
   beforeEach(() => {
     // Reset all mocks before each test
     jest.clearAllMocks();
