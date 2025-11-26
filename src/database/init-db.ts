@@ -28,10 +28,6 @@ function checkIfDataExists() {
                 return;
             }
 
-<<<<<<< HEAD:src/database/init-db.ts
-=======
-            // Users table exists, check if it has any data
->>>>>>> origin/main:src/init-db.ts
             db.get('SELECT COUNT(*) as count FROM users', [], (err: Error | null, result: CountResult | undefined) => {
                 if (err || !result || result.count === 0) {
                     createSchema();
@@ -98,4 +94,3 @@ function createSchema() {
 }
 
 checkIfDataExists();
-
