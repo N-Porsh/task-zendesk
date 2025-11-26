@@ -56,21 +56,19 @@ const App: React.FC = () => {
     try {
       const data = await fetchScores(startDate, endDate, reportType, agentId, categoryId);
       setScoreData(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch data');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch data';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
   };
 
-  // Initial fetch on mount (optional, or wait for user)
   useEffect(() => {
     if (agents.length > 0 && categories.length > 0) {
       handleFetch();
     }
-  }, [agents, categories]); // Fetch once data is loaded, or just let user click? 
-  // The original script.js did initial fetch. Let's do it too but we need to be careful about dependency loops.
-  // Actually, better to just call handleFetch once after initial data load.
+  }, [agents, categories]);
 
   return (
     <div className="container">

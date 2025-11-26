@@ -102,11 +102,22 @@ Before deploying, ensure `database.db` is available in the persistent volume. Yo
 ```
 .
 ├── src/                  # Backend TypeScript source
-│   ├── db.ts            # Database layer
-│   ├── scoring.ts       # Scoring logic
-│   ├── service.ts       # gRPC service handlers
-│   ├── server.ts        # gRPC server
-│   └── web-server.ts    # Web server
+│   ├── api/             # Express API server
+│   │   ├── app.ts       # Express app setup
+│   │   ├── index.ts     # API server entry point
+│   │   └── routes/      # API route handlers
+│   ├── grpc/            # gRPC server
+│   │   ├── client.ts    # gRPC client
+│   │   ├── server.ts    # gRPC server entry point
+│   │   ├── service.ts   # gRPC service handlers
+│   │   └── types.ts     # gRPC types
+│   ├── database/        # Database layer
+│   │   ├── db.ts        # Database connection and queries
+│   │   └── init-db.ts   # Database initialization
+│   ├── services/        # Business logic
+│   │   └── scoring.ts   # Scoring calculations
+│   ├── middleware/      # Express middleware
+│   └── utils/           # Utilities
 ├── client/              # React frontend
 │   ├── src/
 │   │   ├── api/         # API client
