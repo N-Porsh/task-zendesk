@@ -1,0 +1,36 @@
+{
+  "name": "zdt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && cd client && npm run build",
+    "init-db": "node dist/init-db.js",
+    "start": "npm run init-db && concurrently \"node dist/server.js\" \"node dist/web-server.js\"",
+    "dev": "concurrently \"ts-node src/server.ts\" \"ts-node src/web-server.ts\" \"cd client && npm run dev\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.1",
+    "@grpc/proto-loader": "^0.8.0",
+    "axios": "^1.13.2",
+    "date-fns": "^4.1.0",
+    "express": "^5.1.0",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "@types/node": "^22.0.0",
+    "@types/sqlite3": "^3.1.11",
+    "concurrently": "^9.2.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

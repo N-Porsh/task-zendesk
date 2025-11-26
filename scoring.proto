@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package scoring;
+
+service ScoringService {
+  rpc GetCategoryScores (DateRangeRequest) returns (CategoryScoresResponse);
+  rpc GetOverallScore (DateRangeRequest) returns (OverallScoreResponse);
+  rpc GetAgents (Empty) returns (AgentsResponse);
+  rpc GetCategories (Empty) returns (CategoriesResponse);
+  rpc GetAgentScores (AgentScoreRequest) returns (CategoryScoresResponse);
+  rpc GetCategoryDetails (CategoryDetailsRequest) returns (AgentScoresResponse);
+}
+
+message Empty {}
+
+message DateRangeRequest {
+  string start_date = 1;
+  string end_date = 2;
+}
+
+message AgentScoreRequest {
+  string start_date = 1;
+  string end_date = 2;
+  int32 agent_id = 3;
+}
+
+message CategoryDetailsRequest {
+  string start_date = 1;
+  string end_date = 2;
+  int32 category_id = 3;
+}
+
+message CategoryScore {
+  string category = 1;
+  int32 ratings_count = 2;
+  repeated int32 period_scores = 3;
+  int32 score = 4;
+}
+
+message AgentScore {
+  string agent_name = 1;
+  int32 ratings_count = 2;
+  repeated int32 period_scores = 3;
+  int32 score = 4;
+}
+
+message CategoryScoresResponse {
+  repeated string periods = 1;
+  repeated CategoryScore category_scores = 2;
+}
+
+message AgentScoresResponse {
+  repeated string periods = 1;
+  repeated AgentScore agent_scores = 2;
+}
+
+message OverallScoreResponse {
+  int32 score = 1;
+}
+
+message Agent {
+  int32 id = 1;
+  string name = 2;
+}
+
+message AgentsResponse {
+  repeated Agent agents = 1;
+}
+
+message Category {
+  int32 id = 1;
+  string name = 2;
+}
+
+message CategoriesResponse {
+  repeated Category categories = 1;
+}
