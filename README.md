@@ -13,7 +13,7 @@ A Node.js service that calculates and provides helpdesk ticket scores via gRPC A
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22+
 - npm
 
 ### Installation
