@@ -13,9 +13,21 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     oneofs: true
 });
 
-const scoringProto = grpc.loadPackageDefinition(packageDefinition).scoring as any;
+interface ScoringService {
+    service: grpc.ServiceDefinition<unknown>;
+}
+
+const loadedPackage = grpc.loadPackageDefinition(packageDefinition);
+const scoringProto = loadedPackage.scoring as {
+    ScoringService?: ScoringService;
+} | undefined;
 
 function main() {
+    if (!scoringProto || !scoringProto.ScoringService) {
+        console.error('Failed to load gRPC service definition');
+        process.exit(1);
+    }
+    
     const server = new grpc.Server();
     server.addService(scoringProto.ScoringService.service, {
         GetCategoryScores: service.getCategoryScores,
@@ -27,7 +39,7 @@ function main() {
     });
 
     const address = '0.0.0.0:50051';
-    server.bindAsync(address, grpc.ServerCredentials.createInsecure(), (err, port) => {
+    server.bindAsync(address, grpc.ServerCredentials.createInsecure(), (err, _port) => {
         if (err) {
             console.error(err);
             return;

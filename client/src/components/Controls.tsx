@@ -59,7 +59,12 @@ const Controls: React.FC<ControlsProps> = ({
                 <select
                     id="report-type"
                     value={reportType}
-                    onChange={(e) => onReportTypeChange(e.target.value as any)}
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === 'overall' || value === 'agent' || value === 'category') {
+                            onReportTypeChange(value);
+                        }
+                    }}
                 >
                     <option value="overall">Overall</option>
                     <option value="agent">By Agent</option>

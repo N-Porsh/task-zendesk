@@ -48,7 +48,7 @@ class Database {
         WHERE r.created_at BETWEEN ? AND ?
       `;
 
-            const params: any[] = [startDate, endDate];
+            const params: (string | number)[] = [startDate, endDate];
 
             if (options?.agentId) {
                 query += ` AND r.reviewee_id = ?`;

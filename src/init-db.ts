@@ -14,18 +14,22 @@ const db = new sqlite.Database(dbPath, (err: Error | null) => {
     console.log('Connected to database for initialization');
 });
 
+interface CountResult {
+    count: number;
+}
+
 function checkIfDataExists() {
     db.get(
         'SELECT COUNT(*) as count FROM sqlite_master WHERE type="table" AND name="users"',
         [],
-        (err: Error | null, result: any) => {
+        (err: Error | null, result: CountResult | undefined) => {
             if (err || !result || result.count === 0) {
                 createSchema();
                 return;
             }
 
             // Users table exists, check if it has any data
-            db.get('SELECT COUNT(*) as count FROM users', [], (err: Error | null, result: any) => {
+            db.get('SELECT COUNT(*) as count FROM users', [], (err: Error | null, result: CountResult | undefined) => {
                 if (err || !result || result.count === 0) {
                     createSchema();
                 } else {

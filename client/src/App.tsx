@@ -56,8 +56,9 @@ const App: React.FC = () => {
     try {
       const data = await fetchScores(startDate, endDate, reportType, agentId, categoryId);
       setScoreData(data);
-    } catch (err: any) {
-      setError(err.message || 'Failed to fetch data');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to fetch data';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
